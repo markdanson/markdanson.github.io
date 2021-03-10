@@ -1,0 +1,296 @@
+  <html>
+  <body>
+
+  <script src="https://pchen66.github.io/js/three/three.min.js"></script>
+  <script src="https://rawgit.com/pchen66/panolens.js/dev/build/panolens.min.js"> </script>
+
+  <style>
+  html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+}
+
+.popup {
+  position: absolute;
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  align-items: center;
+  color: #000;
+  box-shadow:
+  top: 0;
+  lefT: 0;
+  display: none;
+  text-align: center;
+  background:rgba(255,255,255,0.9);
+  border-radius: 1em;
+  max-width: 35em;
+  width: 90%;
+  padding: 1em;
+  box-shadow: 0em 0em 3em 2em rgb(0 0 0 / 20%);
+}
+
+.mediaHolder {
+  position: relative;
+  width: 100%;
+  padding-top:56%;
+}
+
+.media {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+.popup a{
+  padding: 0.25em;
+  background: rgb(22 170 206);
+  /* box-shadow: 0 0 0 1em rgb(22 170 206 / 30%); */
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.5em;
+}
+
+.popup p {
+  line-height: 1.4em;
+}
+</style>
+
+
+  <div id="container"></div>
+
+    <div class="popup pop_map"> <!-- //tracking down infections 1&2 -->
+      <div class="mediaHolder">
+      <iframe class="media" src="https://www.youtube.com/embed/MdQT_FneLD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+      <div class="pop_text"><h2>Map</h2>
+          Watch <a href="https://youtu.be/MdQT_FneLD4"  target="_blank">video</a> above to learn about tracking infections, then click on the red notebook for the puzzle</a>
+        </div>
+    </div>
+
+
+    <div class="popup pop_mapbook"> <!-- // https://youtu.be/MdQT_FneLD4 tracking down infections 2&3 -->
+      <div class="pop_text"><h2>Map</h2>
+          <p>Find out how to track the infection!</p>
+          <p><a href="https://drive.google.com/file/d/1L2lq_L4QUAWQsN-IZ_QrNPzuwvxXrUnR/preview" target="_blank">Click here to open this puzzle</a></p>
+        </div>
+    </div>
+
+
+
+  <div class="popup pop_blue_folder">
+    <div class="pop_text"> <h2>Blue Folder</h2>
+      <p>Thank goodness you’ve found your way here, we need all hands on deck for the
+next hour - if you want to race the clock, <a href="https://www.bigtimer.net/?hours=1&repeat=false" target="_blank">start a timer now</a> </p>
+<p>A mystery viral outbreak has been
+turning people into zombies! Scattered around this room are various bits of information we have
+gathered about the virus and we need your help to crack the codes. Click on the button to open
+the form to keep track of your answers and so you can see what order to work in and then find the
+case report from Riverview Hospital, its laying about here in a green tray somewhere...</p>
+<p><a href="https://forms.gle/WgNRj9jHHRwNoWBY8"  target="_blank">Click here to open the form</a>  for your answers!</p>
+    </div>
+  </div>
+
+
+  <div class="popup pop_globe">
+    <div class="pop_text"><h2>Globe</h2>
+    <p>Did you know you can check out data from other outbreaks from around the world at Microreact - including COVID-19?</p>
+    <p><a href="https://microreact.org/showcase"  target="_blank">Click here to learn more</a> </p> </div>
+  </div>
+
+
+
+  <div class="popup pop_tray">  <!-- // identifying infections 1&2 -->
+    <div class="pop_text"><h2>Green Tray</h2>
+    <p> Read the Parkhill Hospital case report and solve the puzzles!</p>
+    <p><a href="https://drive.google.com/file/d/1ZfFBX7N2se5y3e9UPX9kkjJMMQA2z2V5/preview" target="_blank">Click here to open the puzzle</a> </p>
+   </div>
+  </div>
+
+
+
+  <div class="popup pop_minion"><!-- // sequencing puzzle1ABC -->
+    <div class="mediaHolder">
+    <iframe class="media" src="https://www.youtube.com/embed/CGWZvHIi3i0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+    <div class="pop_text"><h2>MinION</h2>
+    <p>Watch <a href="https://www.youtube.com/watch?v=CGWZvHIi3i0" target="_blank">the video</a> above, and then help to decode the sequences!</p>
+    <p> <a href="https://drive.google.com/file/d/1XoqUVf2iBxaDU-0f1IYkQ18PYAILmUQL/preview" target="_blank">Click here to open the puzzle</a></p>
+  </div>
+  </div>
+
+
+  <div class="popup pop_align"> <!-- //alignment pdf -->
+    <div class="pop_text"><h2>Laptop</h2>
+      <p>Mutation! <a href="https://drive.google.com/file/d/1_0I0rr7Irst7WZl4D70pH3K6nZf-fOfG/preview" target="_blank">Click here to open the alignment puzzle</a> </p>
+    </div>
+  </div>
+
+  <div class="popup pop_bottles">  <!-- //potential cures pdf -->
+    <div class="pop_text"><h2>Tubes</h2>
+      <p>Potential Cures</p>
+      <p><a href="https://drive.google.com/file/d/1123PmLCYklkCz2YWL5gAzNKTEO_n7UYH/preview" target="_blank">Click here to open the puzzle!</a> </p>
+    </div>
+  </div>
+
+
+  <div class="popup pop_notebook">
+      <div class="pop_text"><h2>Notebook</h2>
+        <p>Don't forget to fill in your answers in the form as you go!</p>
+        <p><a href="https://forms.gle/WgNRj9jHHRwNoWBY8"  target="_blank">Click here to open the form</a></p>
+      </div>
+  </div>
+
+    <div class="popup pop_timer">
+      <div class="pop_text"><h2>Timer</h2>
+      <p>We don't have time to lose! find the next puzzle to solve!</p>
+      <p> <i>Dont forget to <a href="https://www.bigtimer.net/?hours=1&repeat=false" target="_blank">set yourself a timer</a>  if you want to play against to clock!</i></p>
+    </div>
+    </div>
+
+
+    <div class="popup pop_magazine">  <!-- // john snow map -->
+      <div class="mediaHolder">
+          <iframe class="media" src="https://drive.google.com/file/d/1iDkGI7wkBJQ_NTbtqa9rHhEmR6tBuU7L/preview"></iframe>
+        </div>
+      <div class="pop_text"><h2>Magazine Holder</h2>
+      <p> Not related to the case but did you know in the 1800’s a scientist named John Snow was busy tracking down the source of an
+        outbreak just like you are! Back then there was no sequencing, people didn’t know bacteria/viruses
+        existed and sanitation was non-existent. Check out <a href="https://www.ph.ucla.edu/epi/snow/snowcricketarticle.html" target="_blank">this link</a> for the full story and the image of John
+        Snow's own map that helped him isolate which water pump was the most likely culprit for
+        spreading Cholera in Soho.
+        </p></div>
+    </div>
+
+    <div class="popup pop_x"></div>  <!-- // john snow map -->
+
+  <script>
+  var panorama, viewer, container, infospotText, infospot;
+
+  container = document.querySelector( '#container' );
+  panorama = new PANOLENS.ImagePanorama( 'https://markdanson.github.io/IMG_20210223_115456_00_084_lighter.jpg' );
+
+
+
+    pop_blue_folder = document.querySelector( '.pop_blue_folder' );
+    var spot_blue_folder = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info);
+    spot_blue_folder.position.set( -5000.00, -2197.09, -2433.32 );
+    spot_blue_folder.addHoverElement(pop_blue_folder, 250);
+    panorama.add( spot_blue_folder );
+
+
+  pop_tray = document.querySelector( '.pop_tray' );
+  var spot_tray = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_tray.position.set( -5000.00, -915.82, -1180.25 );
+  spot_tray.addHoverElement(pop_tray, 150);
+  panorama.add( spot_tray );
+
+  pop_minion = document.querySelector( '.pop_minion' );
+  var spot_minion = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_minion.position.set( -5000.00, -1977.77, 2360.47 );
+  spot_minion.addHoverElement(pop_minion, 300);
+  panorama.add( spot_minion );
+
+
+
+  pop_magazine = document.querySelector( '.pop_magazine' );
+  var spot_magazine = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_magazine.position.set( -5000.00, -401.33, 2394.25 );
+  spot_magazine.addHoverElement(pop_magazine, 350);
+  panorama.add( spot_magazine );
+
+
+  pop_map = document.querySelector( '.pop_map' );
+  var spot_map = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_map.position.set( -2177.60, -1525.76, -5000.00 );
+  spot_map.addHoverElement(pop_map, 150);
+  panorama.add( spot_map );
+
+
+
+  pop_mapbook = document.querySelector( '.pop_mapbook' );
+  var spot_mapbook = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_mapbook.position.set( -133.48, -2610.70, -5000.00 );
+  spot_mapbook.addHoverElement(pop_mapbook, 150);
+  panorama.add( spot_mapbook );
+
+  pop_globe = document.querySelector( '.pop_globe' );
+  var spot_globe = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_globe.position.set( 1707.40, 5.02, -5000 );
+  spot_globe.addHoverElement(pop_globe, 150);
+  panorama.add( spot_globe );
+
+
+  pop_timer = document.querySelector( '.pop_timer' );
+  var spot_timer = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_timer.position.set( -4218.30, -2665.46, 5000.00 );
+  spot_timer.addHoverElement(pop_timer, 150);
+  panorama.add( spot_timer );
+
+
+  pop_align = document.querySelector( '.pop_align' );
+  var spot_align = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_align.position.set( -903.05, -2456.55, 5000.00 );
+  spot_align.addHoverElement(pop_align, 150);
+  panorama.add( spot_align );
+
+
+  pop_bottles = document.querySelector( '.pop_bottles' );
+  var spot_bottles = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_bottles.position.set( 352.17, 100.69, 5000.00 );
+  spot_bottles.addHoverElement(pop_bottles, 150);
+  panorama.add( spot_bottles );
+
+
+  pop_notebook = document.querySelector( '.pop_notebook' );
+  var spot_notebook = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  spot_notebook.position.set( 2733.40, -2417.88, 5000.00 );
+  spot_notebook.addHoverElement(pop_notebook, 150);
+  panorama.add( spot_notebook );
+
+
+  panorama.addEventListener('enter-fade-start', function(e){
+   // hide the loader
+   spot_blue_folder.focus(1000);
+  // spot_blue_folder.show(100);
+  //pop_blue_folder.show()
+  // console.log(" ANYTHING?")
+
+  });
+
+  viewer = new PANOLENS.Viewer(
+    {
+      container: container,//,
+      output:'console',
+      autoHideInfospot: false,
+    //  initialLookAt:new THREE.Vector3( -4984.56, -1945.42, -1618.92),
+      autoRotateActivationDuration:5000,
+      //horizontalView:true
+  /*  enableReticle: true,            // Enable reticle for mouseless interaction
+      dwellTime: 500,            // Dwell time for reticle selection in millisecond
+      autoReticleSelect: true        // Auto select a clickable target after dwellTime */
+
+    } );
+  viewer.add( panorama );
+  //viewer.tweenControlCenter(new THREE.Vector3(-340.26, -10000, -100.75), 100 ); //-700, -10000, -150
+
+
+  </script>
+
+
+
+</body>
+</html>

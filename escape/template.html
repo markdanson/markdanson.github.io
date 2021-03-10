@@ -1,0 +1,72 @@
+  <html>
+  <body>
+
+  <script src="https://pchen66.github.io/js/three/three.min.js"></script>
+  <script src="https://rawgit.com/pchen66/panolens.js/dev/build/panolens.min.js"> </script>
+
+  <style>
+  html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+#container {
+  width: 100%;
+  height: 100%;
+}
+
+.myDiv {
+  position: absolute;
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+  top: 0;
+  lefT: 0;
+  display: none;
+  text-align: center;
+}
+</style>
+
+
+  <div id="container"></div>
+
+  <div class="myDiv">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/MdQT_FneLD4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div></div>
+  </div>
+
+
+
+<script>
+var panorama, viewer, container, infospot, infospotText, myElement;
+
+container = document.querySelector( '#container' );
+myElement = document.querySelector( '.myDiv' );
+
+panorama = new PANOLENS.ImagePanorama( 'https://markdanson.github.io/IMG_20210223_115456_00_084_lighter.jpg' );
+
+// you can choose to add either a text or custom dom element
+infospot = new PANOLENS.Infospot( 350, PANOLENS.DataImage.Info );
+infospot.position.set( -1000, -2000, -5000 );
+infospot.addHoverElement(myElement, 200);
+
+infospotText = new PANOLENS.Infospot( 350, PANOLENS.DataImage.Info );
+infospotText.position.set( 1000, -2000, -5000 );
+infospotText.addHoverText('Hello');
+
+panorama.add( infospot, infospotText );
+
+viewer = new PANOLENS.Viewer( { container: container } );
+viewer.add( panorama );
+</script>
+
+
+
+
+</body>
+</html>
