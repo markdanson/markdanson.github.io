@@ -1,6 +1,10 @@
-  <html>
-  <body>
+<html>
+<body>
 
+  <script>
+
+  var eyeImg = "data:image/png;base64,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"
+  </script>
   <script src="https://pchen66.github.io/js/three/three.min.js"></script>
   <script src="https://rawgit.com/pchen66/panolens.js/dev/build/panolens.min.js"> </script>
 
@@ -77,14 +81,15 @@
     </div>
 
       <div class="pop_text"><h2>Map</h2>
-          Watch <a href="https://youtu.be/MdQT_FneLD4"  target="_blank">video</a> above to learn about tracking infections, then click on the red notebook for the puzzle</a>
+        <p>Thanks to Dr Sandy J. Matheson’s case report we now know a little more about the virus. We have some movement data for some of the first patients to display symptoms of the zombie virus. Help us to figure out the points on the map where each of the patients got infected.</p>
+        <p> Watch <a href="https://youtu.be/MdQT_FneLD4"  target="_blank">video</a> above to learn about tracking infections, then click on the red notebook for the puzzle</a></p>
         </div>
     </div>
 
 
     <div class="popup pop_mapbook"> <!-- // https://youtu.be/MdQT_FneLD4 tracking down infections 2&3 -->
       <div class="pop_text"><h2>Map</h2>
-          <p>Find out how to track the infection!</p>
+          <p>Now we know where some of the patients got infected thanks to the map data it’s time to figure out who infected each other based on their interactions when infected. Don’t forget that the timer is ticking!</p>
           <p><a href="https://drive.google.com/file/d/1L2lq_L4QUAWQsN-IZ_QrNPzuwvxXrUnR/preview" target="_blank">Click here to open this puzzle</a></p>
         </div>
     </div>
@@ -115,7 +120,7 @@ case report from Riverview Hospital, its laying about here in a green tray somew
 
   <div class="popup pop_tray">  <!-- // identifying infections 1&2 -->
     <div class="pop_text"><h2>Green Tray</h2>
-    <p> Read the Parkhill Hospital case report and solve the puzzles!</p>
+    <p> Dr. Sandy J Matheson had been taking the lead on collecting information about all the patients who have symptoms that could be due to having the zombie virus. She’s summarised all the information she knows about the virus and the patients for you to read through. Can you help figure out who the first patient to be infected was and of those who aren’t in the zombie phase of the infection yet which patients are infected.</p>
     <p><a href="https://drive.google.com/file/d/1ZfFBX7N2se5y3e9UPX9kkjJMMQA2z2V5/preview" target="_blank">Click here to open the puzzle</a> </p>
    </div>
   </div>
@@ -127,21 +132,35 @@ case report from Riverview Hospital, its laying about here in a green tray somew
     <iframe class="media" src="https://www.youtube.com/embed/CGWZvHIi3i0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
     <div class="pop_text"><h2>MinION</h2>
-    <p>Watch <a href="https://www.youtube.com/watch?v=CGWZvHIi3i0" target="_blank">the video</a> above, and then help to decode the sequences!</p>
-    <p> <a href="https://drive.google.com/file/d/1XoqUVf2iBxaDU-0f1IYkQ18PYAILmUQL/preview" target="_blank">Click here to open the puzzle</a></p>
+    <p>  Well done on figuring out how each patient got infected. Click on <a href="https://www.youtube.com/watch?v=CGWZvHIi3i0" target="_blank">the video</a> above to understand how the MinION sequences DNA before attempting to solve this.</p>
+    <p>We have the sequences of the 7 zombie phase patients but the sequencer malfunctioned and didn’t decode all of the sequences to nucleotide sequences. Click to help us find the correct sequences for the those sequences.</p>
+    <p> <a href="https://drive.google.com/file/d/1XoqUVf2iBxaDU-0f1IYkQ18PYAILmUQL/preview" target="_blank">Open the puzzle</a></p>
   </div>
   </div>
+
+
+  <div class="popup pop_laptop"><!-- // sequencing puzzle 2 -->
+  <div class="pop_text"><h2>Laptop</h2>
+
+    <p>Now you’ve learnt a little about MinIONs and how they sequence we need your help sorting out which sequence tag belongs to each person who because George the scientist that sequenced the samples didn’t write down which was which! </p>
+    <p>If you can’t remember how all the patients are related to each other you can go back to the <a href="https://drive.google.com/file/d/1L2lq_L4QUAWQsN-IZ_QrNPzuwvxXrUnR/preview" target="_blank">tracking down infection puzzles</a> to use that information to help.</p>
+    <p> <a href="https://drive.google.com/file/d/1JwIFjL2NO0O8CbGkQC2GC-J_LXMLfgQ5/preview" target="_blank">Click here to open the puzzle</a></p>
+  </div>
+  </div>
+
+
 
 
   <div class="popup pop_align"> <!-- //alignment pdf -->
     <div class="pop_text"><h2>Laptop</h2>
-      <p>Mutation! <a href="https://drive.google.com/file/d/1_0I0rr7Irst7WZl4D70pH3K6nZf-fOfG/preview" target="_blank">Click here to open the alignment puzzle</a> </p>
+      <p>Now you’ve helped sort out the sequencing data you can move on to figuring out if the virus originated from a recombination event or a mutation using those sequences.</p>
+      <p> <a href="https://drive.google.com/file/d/1_0I0rr7Irst7WZl4D70pH3K6nZf-fOfG/preview" target="_blank">Click here to open the alignment puzzle</a> </p>
     </div>
   </div>
 
   <div class="popup pop_bottles">  <!-- //potential cures pdf -->
     <div class="pop_text"><h2>Tubes</h2>
-      <p>Potential Cures</p>
+      <p>The last thing we need to explore is if there is a cure for the virus from already existing chemicals just in case we can help the patients regain their brain function.  Make sure you hustle and don’t run out of time on the last hurdle!</p>
       <p><a href="https://drive.google.com/file/d/1123PmLCYklkCz2YWL5gAzNKTEO_n7UYH/preview" target="_blank">Click here to open the puzzle!</a> </p>
     </div>
   </div>
@@ -178,6 +197,7 @@ case report from Riverview Hospital, its laying about here in a green tray somew
     <div class="popup pop_x"></div>  <!-- // john snow map -->
 
   <script>
+
   var panorama, viewer, container, infospotText, infospot;
 
   container = document.querySelector( '#container' );
@@ -186,77 +206,83 @@ case report from Riverview Hospital, its laying about here in a green tray somew
 
 
     pop_blue_folder = document.querySelector( '.pop_blue_folder' );
-    var spot_blue_folder = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info);
+    var spot_blue_folder = new PANOLENS.Infospot( 600, PANOLENS.DataImage.Info);
     spot_blue_folder.position.set( -5000.00, -2197.09, -2433.32 );
     spot_blue_folder.addHoverElement(pop_blue_folder, 250);
     panorama.add( spot_blue_folder );
 
 
   pop_tray = document.querySelector( '.pop_tray' );
-  var spot_tray = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_tray = new PANOLENS.Infospot( 600, eyeImg)
   spot_tray.position.set( -5000.00, -915.82, -1180.25 );
-  spot_tray.addHoverElement(pop_tray, 150);
+  spot_tray.addHoverElement(pop_tray, 200);
   panorama.add( spot_tray );
 
   pop_minion = document.querySelector( '.pop_minion' );
-  var spot_minion = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_minion = new PANOLENS.Infospot( 600, eyeImg)
   spot_minion.position.set( -5000.00, -1977.77, 2360.47 );
-  spot_minion.addHoverElement(pop_minion, 300);
+  spot_minion.addHoverElement(pop_minion, 350);
   panorama.add( spot_minion );
 
 
+  pop_laptop = document.querySelector( '.pop_laptop' );
+  var spot_laptop = new PANOLENS.Infospot( 600, eyeImg)
+  spot_laptop.position.set( -5000.00, -1654.00, 1240.01 );
+  spot_laptop.addHoverElement(pop_laptop, 200);
+  panorama.add( spot_laptop );
+
 
   pop_magazine = document.querySelector( '.pop_magazine' );
-  var spot_magazine = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_magazine = new PANOLENS.Infospot( 600, eyeImg)
   spot_magazine.position.set( -5000.00, -401.33, 2394.25 );
   spot_magazine.addHoverElement(pop_magazine, 350);
   panorama.add( spot_magazine );
 
 
   pop_map = document.querySelector( '.pop_map' );
-  var spot_map = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_map = new PANOLENS.Infospot( 600, eyeImg)
   spot_map.position.set( -2177.60, -1525.76, -5000.00 );
-  spot_map.addHoverElement(pop_map, 150);
+  spot_map.addHoverElement(pop_map, 350);
   panorama.add( spot_map );
 
 
 
   pop_mapbook = document.querySelector( '.pop_mapbook' );
-  var spot_mapbook = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_mapbook = new PANOLENS.Infospot( 600, eyeImg)
   spot_mapbook.position.set( -133.48, -2610.70, -5000.00 );
   spot_mapbook.addHoverElement(pop_mapbook, 150);
   panorama.add( spot_mapbook );
 
   pop_globe = document.querySelector( '.pop_globe' );
-  var spot_globe = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_globe = new PANOLENS.Infospot( 600, eyeImg)
   spot_globe.position.set( 1707.40, 5.02, -5000 );
   spot_globe.addHoverElement(pop_globe, 150);
   panorama.add( spot_globe );
 
 
   pop_timer = document.querySelector( '.pop_timer' );
-  var spot_timer = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_timer = new PANOLENS.Infospot( 600, PANOLENS.DataImage.Info)
   spot_timer.position.set( -4218.30, -2665.46, 5000.00 );
   spot_timer.addHoverElement(pop_timer, 150);
   panorama.add( spot_timer );
 
 
   pop_align = document.querySelector( '.pop_align' );
-  var spot_align = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_align = new PANOLENS.Infospot( 600, eyeImg)
   spot_align.position.set( -903.05, -2456.55, 5000.00 );
   spot_align.addHoverElement(pop_align, 150);
   panorama.add( spot_align );
 
 
   pop_bottles = document.querySelector( '.pop_bottles' );
-  var spot_bottles = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_bottles = new PANOLENS.Infospot( 600, eyeImg)
   spot_bottles.position.set( 352.17, 100.69, 5000.00 );
   spot_bottles.addHoverElement(pop_bottles, 150);
   panorama.add( spot_bottles );
 
 
   pop_notebook = document.querySelector( '.pop_notebook' );
-  var spot_notebook = new PANOLENS.Infospot( 300, PANOLENS.DataImage.Info)
+  var spot_notebook = new PANOLENS.Infospot( 600, PANOLENS.DataImage.Info)
   spot_notebook.position.set( 2733.40, -2417.88, 5000.00 );
   spot_notebook.addHoverElement(pop_notebook, 150);
   panorama.add( spot_notebook );
