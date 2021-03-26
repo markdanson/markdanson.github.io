@@ -353,7 +353,11 @@
   spot_labcoat.position.set( 4748.89, -5000.00, 3530.88 );
   spot_labcoat.addHoverElement(pop_labcoat, 150);
   panorama.add( spot_labcoat );
+  spot_labcoat.addEventListener( "click", function(){
+    this.focus();
+    gtag('click', 'pop_labcoat');
 
+  } );
 
 
 
