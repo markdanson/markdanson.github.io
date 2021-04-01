@@ -38,12 +38,12 @@
             
             #qr-cam {
                 transition: 0.5s all;
-                max-width: 90%;
+                width: 90%;
                 margin: 0 auto;
                 background: lightgray;
                 padding: 3%;
                 border-radius: 1em;
-                width: 15em;
+                max-width: 40em;
                 position: fixed;
                 left: 50%;
                 bottom: 0;
@@ -118,7 +118,6 @@
         camQrResult.textContent = error;
         camQrResult.style.color = 'inherit';
     });
-  //  scanner.start();
 
    video.parentNode.insertBefore(scanner.$canvas, video.nextSibling);
    scanner.$canvas.setAttribute("id", "scan-area");
