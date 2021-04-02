@@ -187,6 +187,11 @@ function initMap() {
     disableDefaultUI: true,
 
   });
+  const marker = new google.maps.Marker({
+    position: home,
+    map,
+    title: "Uluru (Ayers Rock)",
+  });
 
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -195,9 +200,9 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
+          marker.setPosition(pos);
+         // infoWindow.setContent("Location found.");
+        //  infoWindow.open(map);
           map.setCenter(pos);
         },
         () => {
