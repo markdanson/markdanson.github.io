@@ -38,7 +38,6 @@
                 bottom: 1em;
                 transform: translate(-50%, 0);
                 padding: 1em;
-                background-color: ;
                 border-radius: 50%;
                 background:black url(img/search_w.png) no-repeat;
                 background-size: 75%;
@@ -103,7 +102,7 @@
                 height: 100%;
                 background-color: ivory;
                 border-radius: 10%;
-              //  filter: grayscale(100%) contrast(1.5) brightness(1.5);
+                
             }
 
 
@@ -114,7 +113,7 @@
                 bottom: 0;
                 right: 0;   
                 width: 100%;
-                height: 100%;
+                height: 104%;
             }
 
 
@@ -177,23 +176,182 @@ function initMap() {
 
   let map, infoWindow;
 
-  function initMap() {
-  const home = { lat: 52.1936373, lng: 0.1273479 };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 17,
-    center: home,
-    mapId: '79077c97c96d524b',
-    mapTypeId: 'satellite',
-    disableDefaultUI: true,
+ 
+var items=[];  var hintAreas=[];  var hintPopups=[];   var revealMarkers=[]; var revealPopups=[]; 
 
+items.push(pink = {
+    position: { lat: 52.194407, lng: 0.1256567 },
+    name: 'pink',
+    revealText: "<h1>Reveal 1</h1><p>info about this marker</p>",
+    hintText: "<h1>Hint 1</h1><p>info about this marker</p>"
+    });
+items.push( blue = {
+    position: { lat: 52.193142, lng: 0.1244538 },
+    name: 'blue',
+    revealText: "<h1>Reveal 2</h1><p>info about this marker</p>",
+    hintText: "<h1>Hint 2</h1><p>info about this marker</p>"
+    });
+items.push( coral = {
+    position: { lat: 52.194407, lng: 0.1296557 },
+    name: 'coral',
+    revealText: "<h1>Reveal 3</h1><p>info about this marker</p>",
+    hintText: "<h1>Hint 3</h1><p>info about this marker</p>"
+    });
+items.push(green = {
+    position: { lat: 52.193142, lng: 0.1281528 },
+    name: 'green',  
+    revealText: "<h1>Reveal 4</h1><p>info about this marker</p>",
+    hintText: "<h1>Hint 4</h1><p>info about this marker</p>"
+    });
+
+
+const home = { lat: 52.193616, lng: 0.126948 };
+homeInfo = "<h1>Introduction</h1><p>Welcome to the adventure!</p><p>Use the map to guide you to an area of interest, then when you find the QR code, open the camera below to scan the code and find out more!";
+    
+
+function initMap() {
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 20,
+        center: home,
+        mapId: '79077c97c96d524b',
+        mapTypeId: 'satellite',
+        disableDefaultUI: true,  
+        tilt:0
+    });
+
+  // intro popup + marker
+
+    const introMarker = new google.maps.Marker({
+        position: home,
+        map,
+        animation: google.maps.Animation.DROP,
+        title: "'Tanics'",
+        path: google.maps.SymbolPath.CIRCLE,
+      
+    });
+    introWindow = new google.maps.InfoWindow({
+        position: home,
+        content: homeInfo,
+        pixelOffset:300,
+        maxWidth: 300,
+
+    });
+   // introWindow.setPosition(home);
+    //introWindow.setContent(homeInfo);
+    //introWindow.pixelOffset = 100;
+    introWindow.open(map);
+
+    introMarker.addListener("click", () => {
+        map.setZoom(20);
+        map.panTo(introMarker.position);
+       // revealPopup.open(null);
+        introWindow.open(map)
+    });
+
+    map.addListener("center_changed", () => {
+        introWindow.open(null);   // hide popup
+      
+    });
+
+
+  function createHint(name, hintArea, hintPopup, position, title, hintText) {
+    
+    hintArea =  new google.maps.Circle({
+      strokeColor: "#FF0000",
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: "#FF0000",
+      fillOpacity: 0.35,
+      map,
+      center: position,
+      radius: 10,
+      title:name,
+    });
+
+    hintAreas.push(hintArea);
+    hintPopup = new google.maps.InfoWindow({
+        position:position,
+        content:hintText,
+        maxWidth: 200,
+    });
+    hintPopups.push(hintPopup);
+
+
+   // console.log(Object.getOwnPropertyNames(revealMarker));
+    hintArea.addListener("click", () => {
+        map.setZoom(20);
+        map.panTo(position);
+        hintPopup.open(map);
+       // revealPopup.open(null);
+        introWindow.open(null)
+    });
+
+    map.addListener("center_changed", () => {
+        hintPopup.close();   // hide popup
+      /*  window.setTimeout(() => {
+             map.panTo(circleName.getPosition());
+        }, 1000);
+        */
+    });
+
+}
+
+
+
+function createReveal (name, revealMarker, revealPopup, position, revealText) {
+
+    revealMarker = new google.maps.Marker({
+        position: position,
+        map,
+        animation: google.maps.Animation.DROP,
+        title: name,
+        
+    });
+    revealMarkers.push(revealMarker);
+
+    revealPopup = new google.maps.InfoWindow({
+        position:position,
+        content:revealText,
+        maxWidth: 200,
+    });
+    revealPopups.push(revealPopup);
+
+    revealMarker.addListener("click", () => {
+        map.setZoom(20);
+        map.panTo(position);        
+        revealPopup.open(map);
+    });
+
+    map.addListener("click", () => {
+        revealPopup.close();   // hide popup
+      
+    });
+    revealPopup.open(map);
+    
+}
+
+
+for(i=0;i<items.length;i++) {  
+    createHint(items[i].name, items[i].name + 'HintArea', items[i].name + 'HintPopup', items[i].position, items[i].name, items[i].hintText);
+}
+
+
+google.maps.event.addDomListener(window, "hashchange", () => {
+    var hash = window.location.href.split('#')[1];
+    
+    const reveal = items.find(x => x.name === hash);
+    const index = items.indexOf(reveal);
+
+    hintAreas[index].setMap(null); //hide hint for this scan
+
+    revealPopups.forEach(revealPopup => revealPopup.close()); // close all reveal popups
+    createReveal(reveal.name, reveal.name + 'Marker', reveal.name + 'Popup', reveal.position, reveal.revealText);
+    
+    map.panTo(items[index].position);
+   
   });
-  const marker = new google.maps.Marker({
-    position: home,
-    map,
-    title: "Uluru (Ayers Rock)",
-  });
-    infoWindow = new google.maps.InfoWindow();
-  
+
+    /* // G E O L O C A T I O N
   if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -201,10 +359,10 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
+        //  geoWindow.setPosition(pos);
+        //  geoWindow.setContent("You are Here");
+        //  geooWindow.open(map);
+        //  map.setCenter(pos); 
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -214,8 +372,7 @@ function initMap() {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-
-  
+*/
   /*
 
   infoWindow = new google.maps.InfoWindow();
@@ -302,8 +459,24 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
         if(result.toString().includes("Test")) {
             result = result.toString().slice(5);
-            document.body.style.backgroundColor = result;
+           // document.body.style.backgroundColor = result;
+         //   console.log('same ' + window.location.href.split('#')[1]  + '+' + result);
+            if(window.location.href.split('#')[1] != result) {
+                console.log(' not same' + window.location.href.split('#')[1]  + '+' + result);
+
+                scanner.stop();
+                qr_cam.classList.remove("show");
+                camera_toggle.classList.remove("show");
+                window.location.hash = result;
+        
+                //not same
+               
+            }  
+            else{    
+                result = 'already scanned';
+            }
         }
+
         else{
             result = 'Wrong QR code';
         }
@@ -322,11 +495,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
    video.parentNode.insertBefore(scanner.$canvas, video.nextSibling);
    scanner.$canvas.setAttribute("id", "scan-area");
-    
-    document.getElementById('camera-toggle').addEventListener('click', () => {
-        var qr_cam = document.getElementById('qr-cam');
-        var camera_toggle = document.getElementById('camera-toggle');
+   var qr_cam = document.getElementById('qr-cam');
+    var camera_toggle = document.getElementById('camera-toggle');
 
+    document.getElementById('camera-toggle').addEventListener('click', () => {
+      
         if (qr_cam.classList.contains('show')) {
             qr_cam.classList.remove("show");
             camera_toggle.classList.remove("show");
