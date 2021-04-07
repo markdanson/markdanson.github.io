@@ -2,427 +2,59 @@
 <html lang="en">
     <head>   
      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link rel="stylesheet" href="css/style.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <meta charset="UTF-8">
-        <title>QR Scanner Demo</title>
+        <title>🧭 GuideMap Demo</title>
 
-        <style>
-
-            body{
-                transition: all 0.5s;
-            }
-            #qr-video, #cam-has-camera, #flash-toggle {
-                display: none;
-            }
-            hr {
-                margin-top: 32px;
-            }
-            input[type="file"] {
-                display: block;
-                margin-bottom: 16px;
-            }
-            div {
-                margin-bottom: 16px;
-            }
-
-            #camera-toggle {
-                position: fixed;
-                width: 25%;
-                max-width: 4em;
-                height: 25%;
-                max-height: 4em;
-                z-index: 100;
-                left: 50%;
-                bottom: 1em;
-                transform: translate(-50%, 0);
-                padding: 1em;
-                border-radius: 50%;
-                background:black url(img/search_w.png) no-repeat;
-                background-size: 75%;
-                background-position: 69% 77%;
-                cursor: pointer;
-                transition: 0.3s all;
-            }
-            #camera-toggle:hover {
-                background:white url(img/search.png) no-repeat;
-                background-size: 75%;
-                background-position: 69% 77%;
-
-            }
-            #camera-toggle.show {
-                transform: translate(-50%, 20%) scale(0.7);
-                background:black url(img/close_w.png) no-repeat;
-                background-size: 65%;
-                background-position: 55% 55%;
-            }
-            
-            #camera-toggle.show:hover {
-                background:white url(img/close.png) no-repeat;
-                background-size: 65%;
-                background-position: 55% 55%;
-            }
-
-            #qr-cam {
-                transition: all 0.5s ease-out;
-                z-index: 10;
-                width: 80%;
-                margin: 0 auto;
-                background: lightgray;
-                border-radius: 2em;
-                padding: 3%;
-                max-width: 40em;
-                position: fixed;
-                left: 50%;
-                bottom: 0;
-                text-align: center;
-                transform: translate(-50%, 100%);
-                padding-bottom: 4em;
-            }
-
-            #qr-cam.show {
-
-                transform: translate(-50%, 0%);
-            }
-
-            #qr-cam-holder{
-                width: 100%;
-                padding-top: 100%; /* 1:1 Aspect Ratio */
-                position: relative; 
-
-            }
-            #scan-area {
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;   
-                width: 100%;
-                height: 100%;
-                background-color: ivory;
-                border-radius: 10%;
-                
-            }
-
-
-            #map {
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;   
-                width: 100%;
-                height: 104%;
-            }
-
-
-        </style>
-
-<script>
-   // This example displays a marker at the center of Australia.
-// When the user clicks the marker, an info window opens.
-
-/*
-function initMap() {
-  const home = { lat: 52.1936373, lng: 0.1273479 };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 17,
-    center: home,
-    mapId: '79077c97c96d524b',
-    mapTypeId: 'satellite',
-   // disableDefaultUI: true,
-
-  });
-
-
-  
-  const contentString =
-    '<div id="content">' +
-    '<div id="siteNotice">' +
-    "</div>" +
-    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-    '<div id="bodyContent">' +
-    "<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large " +
-    "sandstone rock formation in the southern part of the " +
-    "Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) " +
-    "south west of the nearest large town, Alice Springs; 450&#160;km " +
-    "(280&#160;mi) by road. Kata Tjuta and Uluru are the two major " +
-    "features of the Uluru - Kata Tjuta National Park. Uluru is " +
-    "sacred to the Pitjantjatjara and Yankunytjatjara, the " +
-    "Aboriginal people of the area. It has many springs, waterholes, " +
-    "rock caves and ancient paintings. Uluru is listed as a World " +
-    "Heritage Site.</p>" +
-    '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-    "https://en.wikipedia.org/w/index.php?title=Uluru</a> " +
-    "(last visited June 22, 2009).</p>" +
-    "</div>" +
-    "</div>";
-  const infowindow = new google.maps.InfoWindow({
-    content: contentString,
-  });
-  const marker = new google.maps.Marker({
-    position: home,
-    map,
-    title: "Uluru (Ayers Rock)",
-  });
-
-  marker.addListener("click", () => {
-    infowindow.open(map, marker);
-  });
-
-  */
- 
-
-  let map, infoWindow;
-
- 
-var items=[];  var hintAreas=[];  var hintPopups=[];   var revealMarkers=[]; var revealPopups=[]; 
-
-items.push(pink = {
-    position: { lat: 52.194407, lng: 0.1256567 },
-    name: 'pink',
-    revealText: "<h1>Reveal 1</h1><p>info about this marker</p>",
-    hintText: "<h1>Hint 1</h1><p>info about this marker</p>"
-    });
-items.push( blue = {
-    position: { lat: 52.193142, lng: 0.1244538 },
-    name: 'blue',
-    revealText: "<h1>Reveal 2</h1><p>info about this marker</p>",
-    hintText: "<h1>Hint 2</h1><p>info about this marker</p>"
-    });
-items.push( coral = {
-    position: { lat: 52.194407, lng: 0.1296557 },
-    name: 'coral',
-    revealText: "<h1>Reveal 3</h1><p>info about this marker</p>",
-    hintText: "<h1>Hint 3</h1><p>info about this marker</p>"
-    });
-items.push(green = {
-    position: { lat: 52.193142, lng: 0.1281528 },
-    name: 'green',  
-    revealText: "<h1>Reveal 4</h1><p>info about this marker</p>",
-    hintText: "<h1>Hint 4</h1><p>info about this marker</p>"
-    });
-
-
-const home = { lat: 52.193616, lng: 0.126948 };
-homeInfo = "<h1>Introduction</h1><p>Welcome to the adventure!</p><p>Use the map to guide you to an area of interest, then when you find the QR code, open the camera below to scan the code and find out more!";
-    
-
-function initMap() {
-    const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 20,
-        center: home,
-        mapId: '79077c97c96d524b',
-        mapTypeId: 'satellite',
-        disableDefaultUI: true,  
-        tilt:0
-    });
-
-  // intro popup + marker
-
-    const introMarker = new google.maps.Marker({
-        position: home,
-        map,
-        animation: google.maps.Animation.DROP,
-        title: "'Tanics'",
-        path: google.maps.SymbolPath.CIRCLE,
-      
-    });
-    introWindow = new google.maps.InfoWindow({
-        position: home,
-        content: homeInfo,
-        pixelOffset:300,
-        maxWidth: 300,
-
-    });
-   // introWindow.setPosition(home);
-    //introWindow.setContent(homeInfo);
-    //introWindow.pixelOffset = 100;
-    introWindow.open(map);
-
-    introMarker.addListener("click", () => {
-        map.setZoom(20);
-        map.panTo(introMarker.position);
-       // revealPopup.open(null);
-        introWindow.open(map)
-    });
-
-    map.addListener("center_changed", () => {
-        introWindow.open(null);   // hide popup
-      
-    });
-
-
-  function createHint(name, hintArea, hintPopup, position, title, hintText) {
-    
-    hintArea =  new google.maps.Circle({
-      strokeColor: "#FF0000",
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: "#FF0000",
-      fillOpacity: 0.35,
-      map,
-      center: position,
-      radius: 10,
-      title:name,
-    });
-
-    hintAreas.push(hintArea);
-    hintPopup = new google.maps.InfoWindow({
-        position:position,
-        content:hintText,
-        maxWidth: 200,
-    });
-    hintPopups.push(hintPopup);
-
-
-   // console.log(Object.getOwnPropertyNames(revealMarker));
-    hintArea.addListener("click", () => {
-        map.setZoom(20);
-        map.panTo(position);
-        hintPopup.open(map);
-       // revealPopup.open(null);
-        introWindow.open(null)
-    });
-
-    map.addListener("center_changed", () => {
-        hintPopup.close();   // hide popup
-      /*  window.setTimeout(() => {
-             map.panTo(circleName.getPosition());
-        }, 1000);
-        */
-    });
-
-}
-
-
-
-function createReveal (name, revealMarker, revealPopup, position, revealText) {
-
-    revealMarker = new google.maps.Marker({
-        position: position,
-        map,
-        animation: google.maps.Animation.DROP,
-        title: name,
-        
-    });
-    revealMarkers.push(revealMarker);
-
-    revealPopup = new google.maps.InfoWindow({
-        position:position,
-        content:revealText,
-        maxWidth: 200,
-    });
-    revealPopups.push(revealPopup);
-
-    revealMarker.addListener("click", () => {
-        map.setZoom(20);
-        map.panTo(position);        
-        revealPopup.open(map);
-    });
-
-    map.addListener("click", () => {
-        revealPopup.close();   // hide popup
-      
-    });
-    revealPopup.open(map);
-    
-}
-
-
-for(i=0;i<items.length;i++) {  
-    createHint(items[i].name, items[i].name + 'HintArea', items[i].name + 'HintPopup', items[i].position, items[i].name, items[i].hintText);
-}
-
-
-google.maps.event.addDomListener(window, "hashchange", () => {
-    var hash = window.location.href.split('#')[1];
-    
-    const reveal = items.find(x => x.name === hash);
-    const index = items.indexOf(reveal);
-
-    hintAreas[index].setMap(null); //hide hint for this scan
-
-    revealPopups.forEach(revealPopup => revealPopup.close()); // close all reveal popups
-    createReveal(reveal.name, reveal.name + 'Marker', reveal.name + 'Popup', reveal.position, reveal.revealText);
-    
-    map.panTo(items[index].position);
-   
-  });
-
-    /* // G E O L O C A T I O N
-  if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-        //  geoWindow.setPosition(pos);
-        //  geoWindow.setContent("You are Here");
-        //  geooWindow.open(map);
-        //  map.setCenter(pos); 
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-*/
-  /*
-
-  infoWindow = new google.maps.InfoWindow();
-  const locationButton = document.createElement("button");
-  locationButton.textContent = "Pan to Current Location";
-  locationButton.classList.add("custom-map-control-button");
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-  locationButton.addEventListener("click", () => {
-    // Try HTML5 geolocation.
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-
-    
-  });*/
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
- // infoWindow.setPosition(pos);
-  console.log(
-    browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
-  );
-//  infoWindow.open(map);
-}
-
-
-  </script>
 
     </head>
 <body>
-    <div id="camera-toggle"></div>
+    
+    <div class="ui" id="settings">
+        <span id="settings-toggle" class="material-icons">settings</span>
+        <div id="settings-options">
+            <div class="option" id="map-toggle">
+                <div id="toggle">
+                    <span class="on material-icons">toggle_on</span>
+                    <span class="off material-icons">toggle_off</span>
+                </div>
+                <span id="text">Satellite view</span>
+            </div>
+            <div class="option" id="settings-clear">
+                <span class="material-icons">delete_forever</span>
+                <span id="settings-clear-text">Clear Data</span>
+
+                </div>
+                <button id="goFS">Go fullscreen</button>
+                <script>
+                var goFS = document.getElementById("goFS");
+                goFS.addEventListener("click", function() {
+                    document.body.requestFullscreen();
+                }, false);
+                </script>
+        </div>
+       
+    </div>
+
+
+
+
+    <div class="ui" id="camera-toggle">
+        <span class="on material-icons">qr_code_2</span>
+        <span class="off material-icons">close</span></div>
+    <div class="ui" id="geolocation-toggle">
+        <span class="off material-icons">gps_not_fixed</span>
+        <span class="unavailable material-icons">gps_off</span>
+        <span class="on material-icons">gps_fixed</span>
+    </div>
+
+
+
+
     <div id="qr-cam" >
         <div id="qr-cam-holder">
             <span id="cam-has-camera"></span>
@@ -438,8 +70,420 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         </div>
     </div>
     
+    <div id="welcome"></div>
     <div id="map"></div>
     
+    <script>
+        
+        let map, infoWindow, firstTime;
+      
+        var items=[];  var hintAreas=[];  var hintPopups=[];   var revealMarkers=[]; var revealPopups=[]; 
+        const MAP_MARKER = 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z';
+
+
+
+        items.push(pink = {
+            position: { lat: 52.194407, lng: 0.1256567 },
+            name: 'pink',
+            revealText: "<h1>Reveal 1</h1><p>info about this marker</p>",
+            hintText: "<h1>Hint 1</h1><p>info about this marker</p>"
+            });
+        items.push( blue = {
+            position: { lat: 52.193142, lng: 0.1244538 },
+            name: 'blue',
+            revealText: "<h1>Reveal 2</h1><p>info about this marker</p>",
+            hintText: "<h1>Hint 2</h1><p>info about this marker</p>"
+            });
+        items.push( coral = {
+            position: { lat: 52.194407, lng: 0.1296557 },
+            name: 'coral',
+            revealText: "<h1>Reveal 3</h1><p>info about this marker</p>",
+            hintText: "<h1>Hint 3</h1><p>info about this marker</p>"
+            });
+        items.push(green = {
+            position: { lat: 52.193142, lng: 0.1281528 },
+            name: 'green',  
+            revealText: "<h1>Reveal 4</h1><p>info about this marker</p>",
+            hintText: "<h1>Hint 4</h1><p>info about this marker</p>"
+            });
+
+        items.forEach(item => {
+            item.revealMarker = item.name+"Marker";
+            item.revealPopup = item.name+"Popup";
+            item.hintArea = item.name+"HintArea";
+            item.hintPopup = item.name+"HintPopup";
+        });
+        const home = { lat: 52.193616, lng: 0.126948 };
+
+        var hash = window.location.hash.split('#')[1];
+       
+        if(items.find(x => x.name === hash)) {
+           // localStorage.firstTime = true;
+            document.getElementById("welcome").innerHTML = "<h1><span class='material-icons'>visibility</span><span class='material-icons'>qr_code</span><span class='material-icons'>my_location</span> You found a secret!</h1><p>Welcome to the Guidemap!</p><p>Use this map to guide you to an area of interest, then when you find the QR code, open the camera below to scan the code and find out more!</p>";
+        }else if(localStorage.revealedItems){ 
+         //   localStorage.notFirstTime = true;
+            document.getElementById("welcome").innerHTML = "<h1><span class='material-icons'>visibility</span><span class='material-icons'>qr_code</span><span class='material-icons'>my_location</span> Welcome back!</h1><p>Welcome to the Guidemap!</p><p>Use this map to guide you to an area of interest, then when you find the QR code, open the camera below to scan the code and find out more!</p><p>P.S. Your progress from last time has been saved, click the <span style='font-size:1em' class='material-icons'>settings</span> settings icon to clear your data.";
+         }else {
+           // firstTime = true;
+            document.getElementById("welcome").innerHTML =  "<h1><span class='material-icons'>visibility</span><span class='material-icons'>qr_code</span><span class='material-icons'>my_location</span> Welcome!</h1><p>Welcome to the Guidemap!</p><p>Use this map to guide you to an area of interest, then when you find the QR code, open the camera below to scan the code and find out more!</p>";
+         };
+         
+         // Settings: satellite, GPS, reveals, clear data
+         
+        function initMap() {
+            
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 17,
+                center: home,
+                mapTypeId: localStorage.mapType,
+                mapId: '79077c97c96d524b',
+                disableDefaultUI: true,  
+               // streetViewControl: true,
+                tilt:0,
+             /*   styles:[{
+                    "featureType": "all",
+                    "elementType": "labels",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                }]*/
+            });
+
+        // intro popup + marker
+
+            const welcomeMarker = new google.maps.Marker({
+                position: home,
+                map,
+                icon: {
+                    path: MAP_MARKER,
+                    scale: 1.8, // > 1 to make it bigger
+                    fillColor: 'rgba(186,104,200,1)', // Use RGBa function
+                    fillOpacity: 1,
+                    strokeColor: 'hsla(291,47%,51%,1)', // Use HSLa function
+                    anchor: { x: 12, y: 24 },
+                },
+               
+            });
+            if(!localStorage.notFirstTime) {
+                welcomeMarker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+            
+            welcomeMarker.addListener("click", () => {
+            //   map.setZoom(20);         
+                welcomeMarker.setAnimation(null);
+                closePopups();
+                map.panTo(welcomeMarker.position);
+                localStorage.notFirstTime = true;                
+                window.location.hash = "hello";
+                hashChange();
+              // document.getElementById("welcome").classList.add("open");       
+            });
+            
+
+            map.addListener("center_changed", () => {
+            //    document.getElementById("welcome").classList.remove("open");        
+            });
+            
+            map.addListener("click", () => {
+               window.location.hash = ""; 
+               document.getElementById("welcome").classList.remove("open");
+               
+               closePopups(); 
+            });
+
+            
+            for(i=0;i<items.length;i++) {  
+                createHint(items[i]);
+            }
+
+            
+            function createHint(item) {
+
+                item.hintArea =  new google.maps.Circle({
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#FF0000",
+                    fillOpacity: 0.35,
+                    map,
+                    center: item.position,
+                    radius: 10,
+                    title:item.name,
+                });
+                hintAreas.push(item.hintArea);
+
+                item.hintPopup = new google.maps.InfoWindow({
+                    position:item.position,
+                    content:item.hintText,
+                    maxWidth: 200,
+                });
+                hintPopups.push(item.hintPopup);
+
+                
+                item.hintArea.addListener("click", () => {
+                    closePopups();
+                    window.location.hash = "";
+                    map.panTo(item.position);
+                    item.hintPopup.open(map);
+                });
+            }   
+           
+            function closePopups () {
+                document.getElementById("welcome").classList.remove("open");
+                revealPopups.forEach(revealPopup => revealPopup.close()); // close all reveal popups
+                hintPopups.forEach(hintPopup => hintPopup.close()); // close all reveal popups
+               /*** dont put window.location.hash = "" in here  ***/
+            }
+
+           
+            
+            function show (hash) {
+
+                revealPopups.forEach(revealPopup => revealPopup.close()); // close all reveal popups
+                hintPopups.forEach(hintPopup => hintPopup.close()); // close all reveal popups
+            
+               
+                const item = items.find(x => x.name === hash);
+                const index = items.indexOf(item);
+                hintAreas[index].setMap(null); //hide hint for this scan
+              
+                if(!revealMarkers.find(x => x.title === item.name)) { //not there, create marker & popup
+
+                    item.revealMarker = new google.maps.Marker({
+                        position: item.position,
+                        map,
+                        animation: google.maps.Animation.DROP,
+                        title: item.name,
+                        icon: {
+                            path: MAP_MARKER,
+                            scale: 1.8, // > 1 to make it bigger
+                            fillColor: 'rgba(234,71,71,1)', // Use RGBa function
+                            fillOpacity: 1,
+                            strokeColor: 'hsla(0,71%,46%,1)', // Use HSLa function
+                            anchor: { x: 12, y: 24 },
+                        },
+                    
+                    });
+                    revealMarkers.push(item.revealMarker);
+                    item.markerObj = item.revealMarker;
+
+                    item.revealMarker.addListener("click", () => {
+                        closePopups();
+                        map.panTo(item.position);
+                        item.revealPopup.open(map);
+                        window.location.hash = hash;
+                        
+                    });
+
+                    item.revealPopup = new google.maps.InfoWindow({
+                        position:item.position,
+                        content:item.revealText,
+                        maxWidth: 200,
+                        pixelOffset:{height:-40, width: 0}
+                    });
+                    revealPopups.push(item.revealPopup);
+                    item.popupObj = item.revealPopup;
+
+                    if(!revealedItems.includes(hash)) {
+                        revealedItems.push(hash);
+                        localStorage.setItem("revealedItems", JSON.stringify(revealedItems));
+                    }
+                }
+                return {
+                    marker: item.markerObj,
+                    popup: item.popupObj,
+                };
+               
+            }
+
+            function hashChange() {
+                hash = window.location.hash.split('#')[1];
+                closePopups();
+                if(items.find(x => x.name === hash)) {
+                    var hashReveal = show(hash);
+                    map.panTo(hashReveal.marker.position);
+                    hashReveal.popup.open(map);
+                } 
+                if(hash == "hello"){
+                    document.getElementById("welcome").classList.add("open");
+
+                } 
+
+            }
+
+
+///////////////////////////////////////////////////
+//                                               //
+//          S E T T I N G S                      //
+//                                               //
+///////////////////////////////////////////////////
+            
+
+            var settings_options = document.getElementById('settings-options');
+            var settings_toggle = document.getElementById('settings-toggle');
+
+            settings_toggle.addEventListener('click', () => {
+
+                if(settings_options.classList.contains("open")) {
+                    settings_options.classList.remove("open");
+                } else {
+                    settings_options.classList.add("open");
+                }
+            });
+        
+
+            var geo_toggle = document.getElementById('geolocation-toggle');
+            geo_toggle.addEventListener('click', () => {
+                settings_options.classList.remove("open");
+                console.log('Retrieving GPS');
+                geo_toggle.classList.add("searching");
+
+               // geo_toggle.classList
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        // success
+                        
+                        function(position) {
+                            console.log("GPS success: lat " + position.coords.latitude + ", long " + position.coords.longitude)
+                            const pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                };
+                            geo_toggle.classList.add("on");
+                            geo_toggle.classList.remove("searching");
+                         /*   infoWindow.setPosition(pos);
+                            infoWindow.setContent("Location found.");
+                            infoWindow.open(map);
+                            map.setCenter(pos); */
+
+                        }, 
+                        // failure
+                        function(error) {
+                            console.log("GPS Fail: " + error.message)
+                            geo_toggle.classList.add("unavailable");
+                            geo_toggle.classList.remove("searching");
+                        },
+                        {
+                        timeout: 5000 // ms
+                        }
+                    )
+                    } else {
+                        console.log("GPS Fail: not supported by browser")
+                        geo_toggle.classList.add("unavailable");
+                        geo_toggle.classList.remove("searching");
+                    }
+                
+            });
+
+            var map_toggle = document.getElementById('map-toggle');
+            map_toggle.addEventListener('click', () => {
+                if(map_toggle.classList.contains("satellite")) {
+                    map_toggle.classList.remove("satellite");
+                    map_toggle.classList.add("roadmap");
+                    map.setMapTypeId('roadmap');
+                    localStorage.mapType = "roadmap";
+                } else {
+                    map_toggle.classList.add("satellite");
+                    map_toggle.classList.remove("roadmap");
+                    map.setMapTypeId('satellite');
+                    localStorage.mapType = "satellite";
+                }
+                
+            });
+
+
+            var settings_clear = document.getElementById('settings-clear');
+            var settings_clear_text = document.getElementById('settings-clear-text');
+            
+            settings_clear.addEventListener('click', () => {
+                hash = "";
+                window.location.hash = hash;
+                localStorage.clear();
+                setTimeout(function(){ 
+                    settings_clear_text.classList.add('done');
+                    settings_clear_text.innerHTML = "Cleared";
+                }, 500);
+                setTimeout(function(){ 
+                    settings_clear_text.classList.remove('done');
+                    settings_clear_text.innerHTML = "Reloading...";
+                }, 1500);
+                setTimeout(function(){ 
+                    location.reload();
+                }, 2500);
+                
+            });
+
+
+        ///////////////////////////////////////////////////
+        //                                               //
+        //          L O C A L   S T O R A G E            //
+        //                                               //
+        ///////////////////////////////////////////////////
+
+            if (!localStorage.visited) {
+                localStorage.visited = true;
+            }
+
+            //  get map settings
+            if (localStorage.mapType) {
+                    localStorage.mapType = localStorage.mapType;
+                    document.getElementById('map-toggle').classList.add(localStorage.mapType);
+                } else {
+                    localStorage.mapType = 'roadmap'; //set first use to roadmap
+                    document.getElementById('map-toggle').classList.add("roadmap");
+                }
+
+            // get previous reveals
+
+            if(localStorage.revealedItems) {
+                var revealedItems = JSON.parse(localStorage.getItem("revealedItems"));
+                revealedItems.forEach(item => { show(item) });
+            }else{
+                var revealedItems=[];  
+            }
+                
+            // get gps status
+    
+
+            google.maps.event.addDomListener(window, "hashchange", () => {
+               hashChange();
+            });
+
+            //if page is loaded with a hash (i.e. loaded straight from QR code), show marker
+            if(hash) {
+                setTimeout(function(){ 
+                    hashChange();
+                }, 1500);
+            }
+           
+        }  //end initmap
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script type="module">
 
@@ -452,6 +496,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     const camQrResult = document.getElementById('cam-qr-result');
     const fileSelector = document.getElementById('file-selector');
     const fileQrResult = document.getElementById('file-qr-result');
+    const qr_cam = document.getElementById('qr-cam');
+    const camera_toggle = document.getElementById('camera-toggle');
 
     function setResult(label, result) {
         label.style.color = 'teal';
@@ -459,18 +505,20 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
         if(result.toString().includes("Test")) {
             result = result.toString().slice(5);
-           // document.body.style.backgroundColor = result;
-         //   console.log('same ' + window.location.href.split('#')[1]  + '+' + result);
-            if(window.location.href.split('#')[1] != result) {
-                console.log(' not same' + window.location.href.split('#')[1]  + '+' + result);
+           // result = result.toString().split('#')[1]; // if QR code urls have hash
+         
+        //  console.log('same ' + window.location.href.split('#')[1]  + '+' + result);
+            if(window.location.href.split('#')[1] != result) {  
+                /*  Important to only auto-close camera popup if scanned hash is different: 
+                    camera keeps the last seen frame before initialiing camera. 
+                    As that was probably a QR code, it immediately reads the last frame and closes again... */
 
                 scanner.stop();
                 qr_cam.classList.remove("show");
                 camera_toggle.classList.remove("show");
                 window.location.hash = result;
         
-                //not same
-               
+                
             }  
             else{    
                 result = 'already scanned';
@@ -495,11 +543,11 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
    video.parentNode.insertBefore(scanner.$canvas, video.nextSibling);
    scanner.$canvas.setAttribute("id", "scan-area");
-   var qr_cam = document.getElementById('qr-cam');
-    var camera_toggle = document.getElementById('camera-toggle');
 
     document.getElementById('camera-toggle').addEventListener('click', () => {
       
+        document.getElementById('settings-options').classList.remove("open");
+        document.getElementById("welcome").classList.remove("open");
         if (qr_cam.classList.contains('show')) {
             qr_cam.classList.remove("show");
             camera_toggle.classList.remove("show");
