@@ -351,6 +351,23 @@
                                 };
                             geo_toggle.classList.add("on");
                             geo_toggle.classList.remove("searching");
+
+                            geoMarker = new google.maps.Marker({
+                                position: pos,
+                                map,
+                                animation: google.maps.Animation.DROP,
+                                title: item.name,
+                                icon: {
+                                    path: MAP_MARKER,
+                                    scale: 1.8, // > 1 to make it bigger
+                                    fillColor: 'rgba(234,71,71,1)', // Use RGBa function
+                                    fillOpacity: 1,
+                                    strokeColor: 'hsla(0,71%,46%,1)', // Use HSLa function
+                                    anchor: { x: 12, y: 24 },
+                                },
+                    
+                            });
+                            map.setCenter(pos);
                          /*   infoWindow.setPosition(pos);
                             infoWindow.setContent("Location found.");
                             infoWindow.open(map);
