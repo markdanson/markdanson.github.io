@@ -79,7 +79,7 @@
       
         var items=[];  var hintAreas=[];  var hintPopups=[];   var revealMarkers=[]; var revealPopups=[]; 
         const MAP_MARKER = 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z';
-
+        
 
 
         items.push(pink = {
@@ -131,7 +131,12 @@
          // Settings: satellite, GPS, reveals, clear data
          
         function initMap() {
-            
+            const geoicon = {
+            url: "img/1f60e.svg",
+            anchor: new google.maps.Point(25,50),
+            scaledSize: new google.maps.Size(50,50)
+        }
+
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 17,
                 center: home,
@@ -342,9 +347,9 @@
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         // success
-                        
                         function(position) {
-                            document.getElementById('settings-clear-text').innerHTML = "GPS success: lat " + position.coords.latitude + ", long " + position.coords.longitude;
+
+                            const myGeoMarker = "";
                             console.log("GPS success: lat " + position.coords.latitude + ", long " + position.coords.longitude)
                             const pos = {
                                     lat: position.coords.latitude,
@@ -353,31 +358,25 @@
                             geo_toggle.classList.add("on");
                             geo_toggle.classList.remove("searching");
 
-                            geoMarker = new google.maps.Marker({
-                                position: pos,
-                                map,
-                                animation: google.maps.Animation.DROP,
-                                icon: {
-                                    path: MAP_MARKER,
-                                    scale: 1.8, // > 1 to make it bigger
-                                    fillColor: 'rgba(234,71,71,1)', // Use RGBa function
-                                    fillOpacity: 1,
-                                    strokeColor: 'hsla(0,71%,46%,1)', // Use HSLa function
-                                    anchor: { x: 12, y: 24 },
-                                },
-                            });
-                    
-                            map.setCenter(pos);
-                         /*   infoWindow.setPosition(pos);
-                            infoWindow.setContent("Location found.");
-                            infoWindow.open(map);
-                            map.setCenter(pos); */
+                            if(!geoMarker) {
+                                geoMarker = new google.maps.Marker({
+                                    position: pos,
+                                    map,
+                                    animation: google.maps.Animation.DROP,
+                                    title: "you",
+                                    icon: geoicon,
+                                });
+                                myGeoMarker = geoMarker;
+                                
 
+                            } else {
+                                myGeoMarker.setPosition(pos);
+                            }
+                            
+                        
                         }, 
                         // failure
                         function(error) {
-                             document.getElementById('settings-clear-text').innerHTML = "GPS Fail: " + error.message;
-                           
                             console.log("GPS Fail: " + error.message)
                             geo_toggle.classList.add("unavailable");
                             geo_toggle.classList.remove("searching");
@@ -387,7 +386,6 @@
                         }
                     )
                     } else {
-                             document.getElementById('settings-clear-text').innerHTML ="GPS Fail: not supported by browser";
                         console.log("GPS Fail: not supported by browser")
                         geo_toggle.classList.add("unavailable");
                         geo_toggle.classList.remove("searching");
