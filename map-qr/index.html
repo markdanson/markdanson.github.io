@@ -344,6 +344,7 @@
                         // success
                         
                         function(position) {
+                            document.getElementById('settings-clear-text').innerHTML = "GPS success: lat " + position.coords.latitude + ", long " + position.coords.longitude;
                             console.log("GPS success: lat " + position.coords.latitude + ", long " + position.coords.longitude)
                             const pos = {
                                     lat: position.coords.latitude,
@@ -356,7 +357,6 @@
                                 position: pos,
                                 map,
                                 animation: google.maps.Animation.DROP,
-                                title: item.name,
                                 icon: {
                                     path: MAP_MARKER,
                                     scale: 1.8, // > 1 to make it bigger
@@ -366,8 +366,8 @@
                                     anchor: { x: 12, y: 24 },
                                 },
                     
-                            });
                             map.setCenter(pos);
+                            });
                          /*   infoWindow.setPosition(pos);
                             infoWindow.setContent("Location found.");
                             infoWindow.open(map);
