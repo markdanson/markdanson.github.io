@@ -30,7 +30,7 @@
                 max-width: 4em;
                 height: 25%;
                 max-height: 4em;
-                z-index: 100;
+                z-index: 99;
                 left: 50%;
                 bottom: 1em;
                 transform: translate(-50%, 0);
