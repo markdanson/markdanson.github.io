@@ -365,9 +365,9 @@
                                     strokeColor: 'hsla(0,71%,46%,1)', // Use HSLa function
                                     anchor: { x: 12, y: 24 },
                                 },
+                            });
                     
                             map.setCenter(pos);
-                            });
                          /*   infoWindow.setPosition(pos);
                             infoWindow.setContent("Location found.");
                             infoWindow.open(map);
@@ -376,6 +376,8 @@
                         }, 
                         // failure
                         function(error) {
+                             document.getElementById('settings-clear-text').innerHTML = "GPS Fail: " + error.message;
+                           
                             console.log("GPS Fail: " + error.message)
                             geo_toggle.classList.add("unavailable");
                             geo_toggle.classList.remove("searching");
@@ -385,6 +387,7 @@
                         }
                     )
                     } else {
+                             document.getElementById('settings-clear-text').innerHTML ="GPS Fail: not supported by browser";
                         console.log("GPS Fail: not supported by browser")
                         geo_toggle.classList.add("unavailable");
                         geo_toggle.classList.remove("searching");
