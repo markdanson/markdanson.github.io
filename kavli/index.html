@@ -24,8 +24,10 @@
                 z-index: 1;
             }
             #headImg {
-
                 z-index: 2;
+            }
+            #headImg-pencil {
+                z-index: 3;
             }
 
             #menu{
@@ -36,16 +38,27 @@
                 font-family: monospace;
                 font-size: 2em;
                 background: rgba(255,255,255,0.4);
-                
-                padding: 0 0.5em;
+                padding: 0.5em;
             }
-            .menu-link{
+            #menu div{
                 background: white;
                 padding: 0.5em;
                 margin: 0.5em 0;
                 text-decoration: underline;
                 cursor: pointer;
                 color: blue;
+                
+                box-shadow: 2px 1px 2px gray;
+                margin: 4px 10px 4px 10px;
+            }
+            
+            #menu div.active{
+
+                color: green;
+                text-decoration: none;
+                box-shadow: 0 0 0 white;
+                margin: 6px 10px 2px 10px;
+                cursor:default;
             }
         </style>
     </head>
@@ -54,10 +67,12 @@
             Style:
             <div class="menu-link" data-src="kavli-wireframe.png" id="helv">Wireframe</div> 
             <div class="menu-link" data-src="" id="helv">Helvetica</div> 
-            <div class="menu-link" data-src="kavli-helv-pencil.png" id="pencil">+ Pencil</div>
+            <div class="menu-link" data-src="kavli-avenir.png" id="avenir">Avenir</div> 
             <div class="menu-link" data-src="kavli-quicksand.png" id="quick">Quicksand</div> 
+            <div class="menu-link-pencil" data-src="kavli-helv-pencil.png" id="pencil">+ Pencil</div>
         </div>
         <div id="container">
+            <img id="headImg-pencil" src="">
             <img id="headImg" src="kavli-wireframe.png">
             <img id="main" src="kavli-launch.png" class="full">
         </div>
@@ -65,12 +80,33 @@
     </body>
 
     <script>
-
+        var pencil = false;
+        const pencilButton = document.querySelector('.menu-link-pencil');
         const buttons = document.querySelectorAll(".menu-link")
+
+        pencilButton.addEventListener('click', function(event) {
+                if (!pencil){
+                    document.querySelector('#headImg-pencil').src = "kavli-pencil.png";
+                    pencil = true;
+                    pencilButton.classList.add('active');
+                }
+                else{
+                    document.querySelector('#headImg-pencil').src = "";
+                    pencil = false;
+                    pencilButton.classList.remove('active');
+                }
+                
+            });
 
         for (const button of buttons) {
             button.addEventListener('click', function(event) {
                 document.querySelector('#headImg').src = this.getAttribute('data-src');
+                
+                for (const button of buttons) {
+                    button.classList.remove('active')
+                }
+                
+                this.classList.add('active')
             });
 
         }
